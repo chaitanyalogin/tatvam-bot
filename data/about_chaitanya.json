@@ -1,4 +1,12 @@
 {
+  "meta": {
+    "version": "3.1",
+    "note": "Profile + 'about' answers for who-is queries (includes playful intro)."
+  },
+  "about": [
+    "Chaitanya is an electronic device 😜 Just kidding! Here you go:",
+    "Chaitanyachidambar Kulkarni is a Junior Software Engineer at iTriangle Infotech (Bengaluru), focused on Power BI, MySQL, Python ETL, and embedded live reporting. He built financial MIS and End-of-Line (EOL) testing dashboards, automated daily refresh via Gateway at 12 AM IST, parsed IMEI-level failure reasons, and deployed secure iFrame dashboards for internal/leadership use."
+  ],
   "name": "Chaitanyachidambar Kulkarni",
   "location": "Bengaluru, Karnataka",
   "email": "Chaitanyarocks.kulkarni@gmail.com",
@@ -41,9 +49,9 @@
     }
   ],
   "education": [
-    {"course": "Data Science Specialization", "institute": "Excel-R Solutions", "date": "01/2025"},
-    {"course": "Data Analyst Specialization", "institute": "Excel-R Solutions", "date": "01/2024"},
-    {"degree": "Bachelor of Commerce", "institute": "CSI College of Commerce", "date": "10/2022", "cgpa": "8.16"}
+    { "course": "Data Science Specialization", "institute": "Excel-R Solutions", "date": "01/2025" },
+    { "course": "Data Analyst Specialization", "institute": "Excel-R Solutions", "date": "01/2024" },
+    { "degree": "Bachelor of Commerce", "institute": "CSI College of Commerce", "date": "10/2022", "cgpa": "8.16" }
   ],
   "projects": [
     {
@@ -100,7 +108,7 @@
     },
     {
       "name": "Live Data Pipeline Automation",
-      "timeline": "Ongoing (established in July 2025)",
+      "timeline": "Established Jul 2025 (ongoing)",
       "purpose": "Zero-manual-refresh operational reporting.",
       "details": [
         "Python ETL to fetch/clean/load MySQL data for BI; daily 12:00 AM IST refresh.",
@@ -124,17 +132,16 @@
       "timeline": "Aug 2025",
       "purpose": "Public, recruiter-facing assistant that answers about Chaitanya and handles small talk & basic reasoning.",
       "details": [
-        "Client-only chatbot hosted on GitHub Pages; uses WebLLM (on-device) — no API keys or servers.",
-        "Knowledge base in structured JSON (`about_chaitanya.json`); RAG-lite keyword retrieval.",
-        "Small-talk pack (`smalltalk.json`) for greetings ('how are you', 'what's up', etc.).",
-        "System prompt steers to career topics; off-topic guardrails.",
-        "UI: chat window + quick-question chips; resume/LinkedIn/email CTAs.",
+        "Client-only chatbot hosted on GitHub Pages; uses on-device WebLLM (no server APIs).",
+        "Knowledge base in structured JSON; lightweight keyword+fuzzy retrieval.",
+        "Small-talk pack for greetings, memes, jokes, and guardrails.",
+        "UI: chat window + quick chips; CTAs for resume/LinkedIn/email.",
         "Deployed as static site; optional QR link on resume."
       ],
       "capabilities": [
         "Answers recruiter questions about skills, projects, and experience.",
-        "Handles casual conversation naturally, then guides back to career topics.",
-        "Basic reasoning/aptitude answers via LLM; concise and professional tone."
+        "Handles casual conversation with humor, then guides back to career topics.",
+        "Basic reasoning/aptitude prompts; concise and professional tone."
       ],
       "tech": ["HTML/CSS/JS", "WebLLM", "JSON knowledge base", "GitHub Pages"]
     },
@@ -168,3 +175,4 @@
   },
   "languages": ["Kannada", "English", "Hindi"]
 }
+
