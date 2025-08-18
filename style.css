@@ -6,20 +6,20 @@
 html,body{height:100%}
 body{
   margin:0; background:var(--bg); color:var(--text);
-  font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
 }
 
 /* Topbar */
 .topbar{
   position:sticky; top:0; z-index:10;
   display:flex; align-items:center; justify-content:space-between;
-  gap:1rem; padding:.8rem 1rem; border-bottom:1px solid var(--border); background:rgba(11,14,18,.8); backdrop-filter: blur(8px);
+  gap:1rem; padding:.8rem 1rem; border-bottom:1px solid var(--border);
+  background:rgba(11,14,18,.8); backdrop-filter: blur(8px);
 }
 .brand{display:flex; align-items:center; gap:.8rem}
 .logo{
   width:36px; height:36px; border-radius:12px; display:grid; place-items:center;
-  background:linear-gradient(135deg,var(--accent2),var(--accent));
-  color:#001b2e; font-weight:700;
+  background:linear-gradient(135deg,var(--accent2),var(--accent)); color:#001b2e; font-weight:700;
 }
 .titles h1{margin:0; font-size:1.2rem}
 .titles p{margin:0; color:var(--muted); font-size:.85rem}
