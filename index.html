@@ -1,58 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TatTvam Bot</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TatTvam — Chaitanya’s AI Guide</title>
+  <!-- use your local CSS in the repo root -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="chatbot-container">
-    <div class="chat-header">
-      <img src="bot.png" alt="TatTvam Bot Logo" class="bot-logo">
-      <h1>TatTvam Bot</h1>
+  <!-- ===== Top Bar ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🤖</div>
+      <div class="titles">
+        <h1>TatTvam</h1>
+        <p>your friendly guide to Chaitanya</p>
+      </div>
     </div>
-    <div id="chatbox" class="chatbox">
-      <div class="bot-message">Hello! 🤖 I'm TatTvam Bot. How can I help you today?</div>
-    </div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type your message..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
 
+    <nav class="actions">
+      <a class="btn" target="_blank"
+         href="https://www.linkedin.com/in/chaitanyachidambarkulkarni/">LinkedIn</a>
+      <a class="btn" href="mailto:Chaitanyarocks.kulkarni@gmail.com">Email</a>
+      <a class="btn outline" target="_blank"
+         href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/chaitanyachidambar.pdf">Resume</a>
+    </nav>
+  </header>
+
+  <!-- ===== Main Layout ===== -->
+  <main class="wrap">
+    <!-- Sidebar with quick chips -->
+    <aside class="sidebar">
+      <div class="card">
+        <h3>Quick actions</h3>
+        <div class="chips" id="chips">
+          <button class="chip" data-q="skills">Skills</button>
+          <button class="chip" data-q="projects">Projects</button>
+          <button class="chip" data-q="eol">EOL project</button>
+          <button class="chip" data-q="deployment">Deployment</button>
+          <button class="chip" data-q="tell me a joke">Joke</button>
+          <button class="chip" data-q="memes">Meme</button>
+        </div>
+      </div>
+      <div class="card mini">
+        <p class="muted">Tip: ask in Hinglish too — “kaise ho bhai”, “current company?”, “introduce chaitanya”.</p>
+      </div>
+    </aside>
+
+    <!-- Chat column -->
+    <section class="chat" id="chat">
+      <!-- messages render here -->
+    </section>
+  </main>
+
+  <!-- Composer -->
+  <footer class="composer">
+    <form id="form">
+      <input id="input" type="text" placeholder="Ask me anything about Chaitanya…" autocomplete="off" />
+      <button class="send" aria-label="Send">➤</button>
+    </form>
+  </footer>
+
+  <!-- ===== Data Sources (YOUR EXACT LINKS) ===== -->
   <script>
-    async function loadAboutChaitanya() {
-      try {
-        let response = await fetch("https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/main/data/about_chaitanya.json");
-        let data = await response.json();
-        console.log("Loaded profile:", data);
-      } catch (error) {
-        console.error("Error loading JSON:", error);
-      }
-    }
-    loadAboutChaitanya();
-
-    function sendMessage() {
-      let input = document.getElementById("userInput").value;
-      if (input.trim() === "") return;
-      
-      let chatbox = document.getElementById("chatbox");
-      let userDiv = document.createElement("div");
-      userDiv.className = "user-message";
-      userDiv.innerText = input;
-      chatbox.appendChild(userDiv);
-
-      // Just a simple echo bot for now
-      let botDiv = document.createElement("div");
-      botDiv.className = "bot-message";
-      botDiv.innerText = "You said: " + input;
-      chatbox.appendChild(botDiv);
-
-      document.getElementById("userInput").value = "";
-      chatbox.scrollTop = chatbox.scrollHeight;
-    }
+    window.DATA_URLS = {
+      smalltalk: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/smalltalk.json",
+      profile:   "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
+      jokes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/jokes.json",
+      memes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/memes.json"
+    };
   </script>
+
+  <!-- Your local JS in repo root -->
+  <script src="app.js"></script>
 </body>
 </html>
-
