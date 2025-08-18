@@ -1,0 +1,170 @@
+{
+  "name": "Chaitanyachidambar Kulkarni",
+  "location": "Bengaluru, Karnataka",
+  "email": "Chaitanyarocks.kulkarni@gmail.com",
+  "phone": "9591454650",
+  "linkedin": "https://www.linkedin.com/in/chaitanyachidambarkulkarni/",
+  "summary": "Results-driven Junior Software Engineer & Data Analyst with hands-on experience in Power BI, MySQL, Python ETL, and embedded live reporting. Built financial and testing dashboards, automated refresh pipelines, and deployed secure iFrame reports for leadership and investor-facing views.",
+  "technical_skills": {
+    "data_engineering_automation": ["Python ETL pipelines", "API/JSON integration", "Scheduled refresh with Gateway"],
+    "databases": ["MySQL (extraction, joins, BI-optimized transforms)"],
+    "business_intelligence": ["Power BI (Advanced DAX, dynamic slicers, epoch-based date logic, embedded dashboards)"],
+    "programming_languages": ["Python", "SQL"],
+    "data_analysis_visualization": ["Excel", "Power BI", "Tableau", "Matplotlib", "Seaborn"],
+    "machine_learning": ["Scikit-Learn", "EDA", "Feature engineering", "Supervised/Unsupervised ML"],
+    "deployment_tools": ["Power BI Service", "Power BI Gateway", "Website iFrame embedding"],
+    "reporting_tools": ["Microsoft PowerPoint"]
+  },
+  "experience": [
+    {
+      "title": "Junior Software Engineer",
+      "company": "iTriangle Infotech Pvt Ltd",
+      "duration": "06/2025 – Present",
+      "achievements": [
+        "Built and deployed financial dashboards for device-wise, service-wise, and month-wise sales/purchase with margin and closing stock analysis.",
+        "Automated MySQL → Power BI refresh using Python ETL; reduced manual reporting from hours to seconds; daily refresh begins 12:00 AM IST.",
+        "Created EOL testing dashboards (Stage 1 & 2) with IMEI-level failure reason parsing and model/date/stage slicers; epoch-based DAX for 'today by default'.",
+        "Deployed dashboards via secure website iFrame embedding; used internally and for leadership/investor viewing.",
+        "Standardized DAX measures and slicer behavior across reports for consistent UX."
+      ],
+      "tools_used": ["Power BI", "MySQL", "Python (ETL)", "DAX", "Power BI Gateway", "Website iFrame"]
+    },
+    {
+      "title": "Data Analyst Intern",
+      "company": "AI Variant Company",
+      "duration": "08/2023 – 05/2024",
+      "achievements": [
+        "Gathered requirements with clients; built dashboards in Power BI/Tableau/Excel cutting report time by ~40%.",
+        "Cleaned and analyzed large datasets with Python & SQL; prepared PPT insights for stakeholders."
+      ],
+      "tools_used": ["Power BI", "Tableau", "Excel", "MySQL", "Python", "PowerPoint"]
+    }
+  ],
+  "education": [
+    {"course": "Data Science Specialization", "institute": "Excel-R Solutions", "date": "01/2025"},
+    {"course": "Data Analyst Specialization", "institute": "Excel-R Solutions", "date": "01/2024"},
+    {"degree": "Bachelor of Commerce", "institute": "CSI College of Commerce", "date": "10/2022", "cgpa": "8.16"}
+  ],
+  "projects": [
+    {
+      "name": "April–May Financial Summary Dashboard",
+      "timeline": "June 2025",
+      "purpose": "Internal finance visibility for month-on-month performance.",
+      "details": [
+        "Interactive summary of revenue, purchase, margin, and closing stock for April–May.",
+        "Month/Branch/Type slicers; daily & historical DAX measures.",
+        "Used internally by finance; baseline for later Q1 views."
+      ],
+      "tech": ["Power BI", "MySQL", "DAX"]
+    },
+    {
+      "name": "Q1 Performance Dashboard",
+      "timeline": "July 2025",
+      "purpose": "Leadership view of sales, purchase, and variance across months/branches.",
+      "details": [
+        "Trend visuals with monthly comparisons; clean layout.",
+        "Deployed for leadership/investor viewing (website iFrame)."
+      ],
+      "tech": ["Power BI", "DAX"]
+    },
+    {
+      "name": "Q1 Financial Summary Dashboard",
+      "timeline": "July 2025",
+      "purpose": "Finance team’s consolidated Q1 tracking.",
+      "details": [
+        "P&L-style cards, Balance Sheet cues, and ratios (e.g., margin%); FG inventory and closing balance for OEM & After Market.",
+        "Internal deployment to finance team via Power BI Service."
+      ],
+      "tech": ["Power BI", "MySQL", "DAX"]
+    },
+    {
+      "name": "EOL Dashboard (Stage 1 & 2)",
+      "timeline": "Jul–Aug 2025",
+      "purpose": "Factory testing visibility at IMEI level.",
+      "details": [
+        "Visual tables for Total Tested, Passed, Retested-Recovered, Failed.",
+        "Stage/Model/Date slicers; epoch-based 'today-by-default' filtering in DAX.",
+        "IMEI failure parsing by selecting tokens ending with ':0'; filters respect Stage 1/2."
+      ],
+      "tech": ["Power BI", "DAX"]
+    },
+    {
+      "name": "Failure Reason Parsing (EOL)",
+      "timeline": "Aug 2025",
+      "purpose": "Actionable failure insights for QA teams.",
+      "details": [
+        "Parsed complex result strings (e.g., 'XYZ:0, ABC:1'); counted only true fail tokens ':0'.",
+        "Works with stage selector and model/date slicers; supports combined Stage 1 & 2 view."
+      ],
+      "tech": ["Power BI", "DAX"]
+    },
+    {
+      "name": "Live Data Pipeline Automation",
+      "timeline": "Ongoing (established in July 2025)",
+      "purpose": "Zero-manual-refresh operational reporting.",
+      "details": [
+        "Python ETL to fetch/clean/load MySQL data for BI; daily 12:00 AM IST refresh.",
+        "Fallback approach planned if direct connectors degrade."
+      ],
+      "tech": ["Python", "MySQL", "Power BI Gateway", "Power BI Service"]
+    },
+    {
+      "name": "Website Dashboard Deployment",
+      "timeline": "July 2025",
+      "purpose": "Centralized access for internal & leadership/investor views.",
+      "details": [
+        "Embedded dashboards using secure iFrame on company portal.",
+        "Right-click disabled/obfuscation as needed; uses Service auth.",
+        "Accurate live daily data via Service + Gateway."
+      ],
+      "tech": ["Power BI Service", "Website iFrame", "Gateway"]
+    },
+    {
+      "name": "TatTvam — AI Chatbot (Personal Project)",
+      "timeline": "Aug 2025",
+      "purpose": "Public, recruiter-facing assistant that answers about Chaitanya and handles small talk & basic reasoning.",
+      "details": [
+        "Client-only chatbot hosted on GitHub Pages; uses WebLLM (on-device) — no API keys or servers.",
+        "Knowledge base in structured JSON (`about_chaitanya.json`); RAG-lite keyword retrieval.",
+        "Small-talk pack (`smalltalk.json`) for greetings ('how are you', 'what's up', etc.).",
+        "System prompt steers to career topics; off-topic guardrails.",
+        "UI: chat window + quick-question chips; resume/LinkedIn/email CTAs.",
+        "Deployed as static site; optional QR link on resume."
+      ],
+      "capabilities": [
+        "Answers recruiter questions about skills, projects, and experience.",
+        "Handles casual conversation naturally, then guides back to career topics.",
+        "Basic reasoning/aptitude answers via LLM; concise and professional tone."
+      ],
+      "tech": ["HTML/CSS/JS", "WebLLM", "JSON knowledge base", "GitHub Pages"]
+    },
+    {
+      "name": "Fraud Detection Model (Personal)",
+      "details": [
+        "RandomForestClassifier; ~97% accuracy with tuned hyperparameters.",
+        "Deployed via Streamlit for interactive predictions."
+      ],
+      "tech": ["Python", "Scikit-Learn", "Streamlit"]
+    },
+    {
+      "name": "Movie Recommendation System (Personal)",
+      "details": [
+        "Content-based recommender using TF-IDF and cosine similarity; returns top-5 similar titles."
+      ],
+      "tech": ["Python", "Pandas", "NumPy"]
+    },
+    {
+      "name": "SMS Spam Classifier (Personal)",
+      "details": [
+        "NLP preprocessing + classifier to label SMS as spam/ham; evaluated with standard metrics."
+      ],
+      "tech": ["Python", "Scikit-Learn", "NLP"]
+    }
+  ],
+  "deployment_summary": {
+    "embedding": "Power BI dashboards embedded via secure iFrame on company website.",
+    "audience": "Internal teams, leadership, and investor-facing views as required.",
+    "refresh": "Daily scheduled refresh through Power BI Gateway; epoch-based DAX ensures 'today' by default."
+  },
+  "languages": ["Kannada", "English", "Hindi"]
+}
