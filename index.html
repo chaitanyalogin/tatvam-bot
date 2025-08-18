@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TatTvam — Your AI Guide</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- WebLLM model loader -->
+  <script src="https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm/dist/web-llm.min.js"></script>
+</head>
+<body>
+  <header class="container">
+    <div class="title">
+      <h1>TatTvam</h1>
+      <p>The voice of Chaitanya — Ask me anything</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="chat card">
+      <h2>Chat with TatTvam</h2>
+      <div id="chatWindow" class="chat-window"></div>
+      <form id="chatForm" class="chat-form">
+        <input id="userInput" type="text" placeholder="Ask something..." autocomplete="off" />
+        <button class="btn" type="submit">Send</button>
+      </form>
+      <div id="status" class="status">Loading model…</div>
+    </section>
+  </main>
+
+  <footer class="container foot">
+    <small>© 2025 Chaitanya — Powered by WebLLM • No tracking • No server</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
