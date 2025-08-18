@@ -4,12 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TatTvam — Chaitanya’s AI Guide</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <div class="logo"></div>
+      <!-- simple neutral logo -->
+      <div class="logo" aria-hidden="true">🤖</div>
       <div class="titles">
         <h1>TatTvam</h1>
         <p>your friendly guide to Chaitanya</p>
@@ -20,7 +21,6 @@
       <a class="btn" target="_blank"
          href="https://www.linkedin.com/in/chaitanyachidambarkulkarni/">LinkedIn</a>
       <a class="btn" href="mailto:Chaitanyarocks.kulkarni@gmail.com">Email</a>
-      <!-- point this to a hosted PDF if you want a direct download -->
       <a class="btn outline" target="_blank"
          href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/chaitanyachidambar.pdf">Resume</a>
     </nav>
@@ -44,9 +44,7 @@
       </div>
     </aside>
 
-    <section class="chat" id="chat">
-      <!-- messages render here -->
-    </section>
+    <section class="chat" id="chat"></section>
   </main>
 
   <footer class="composer">
@@ -57,14 +55,14 @@
   </footer>
 
   <script>
-    // raw JSON URLs (already in your repo)
+    /* exact RAW URLs in your repo */
     window.DATA_URLS = {
       smalltalk: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/smalltalk.json",
       profile:   "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
-      jokes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/data/jokes.json",
-      memes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/data/data/memes.json"
+      jokes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/jokes.json",
+      memes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/memes.json"
     };
   </script>
-  <script src="app.js"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
