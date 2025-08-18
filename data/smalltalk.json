@@ -1,0 +1,227 @@
+{
+  "meta": {
+    "version": "1.0",
+    "note": "Rich small-talk + steering replies. Safe, offline, no promises of live data."
+  },
+  "intents": [
+    {
+      "name": "greeting_basic",
+      "patterns": ["hi", "hello", "hey", "namaste", "namaskar", "hola", "yo", "hey there", "good day"],
+      "responses": [
+        "Hey there! 👋 I’m TatTvam.",
+        "Hello! 😊 I’m TatTvam — ask me about Chaitanya’s work or projects.",
+        "Namaste! 🙏 Happy to help you explore Chaitanya’s skills."
+      ]
+    },
+    {
+      "name": "how_are_you",
+      "patterns": ["how are you", "hows it going", "how's it going", "how are u", "kem cho", "suprabhat kaise ho", "yen samachara", "how r u"],
+      "responses": [
+        "I’m doing great, thanks! How about you? Want a quick summary of Chaitanya’s recent work?",
+        "Feeling productive! 🙂 I can walk you through the EOL dashboard or Python ETL — your pick.",
+        "All good here. Shall I show a 30-sec overview of Chaitanya’s projects?"
+      ]
+    },
+    {
+      "name": "whats_up",
+      "patterns": ["what's up", "whats up", "sup", "kya chal raha", "yen agutte"],
+      "responses": [
+        "Ready to help! Ask me about Chaitanya’s Power BI or MySQL work.",
+        "Just here to guide you — want highlights from the April–May finance dashboard?",
+        "Nothing much — should I summarize the ETL automation he built?"
+      ]
+    },
+    {
+      "name": "good_morning",
+      "patterns": ["good morning", "gm", "subah bkhair", "shubh prabhat"],
+      "responses": [
+        "Good morning! ☀️ Want today’s quick overview of Chaitanya’s skills?",
+        "Morning! Shall I start with his core stack: Power BI, MySQL, Python ETL?"
+      ]
+    },
+    {
+      "name": "good_evening",
+      "patterns": ["good evening", "ge", "shubh sandhya"],
+      "responses": [
+        "Good evening! 🌆 Curious about Chaitanya’s EOL dashboards?",
+        "Evening! Want a 60-sec pitch you can share with your team?"
+      ]
+    },
+    {
+      "name": "thanks",
+      "patterns": ["thanks", "thank you", "thx", "ty", "bahut dhanyavaad", "thanks a lot"],
+      "responses": [
+        "You’re welcome! 🙌 Anything else you’d like to know?",
+        "Happy to help! Want links to his LinkedIn or email?"
+      ]
+    },
+    {
+      "name": "goodbye",
+      "patterns": ["bye", "goodbye", "see you", "tc", "chalo milte"],
+      "responses": [
+        "Bye! 👋 Have a great day.",
+        "See you again — ping me anytime."
+      ]
+    },
+    {
+      "name": "who_are_you",
+      "patterns": ["who are you", "what are you", "are you chatgpt", "are you ai"],
+      "responses": [
+        "I’m TatTvam — Chaitanya’s portfolio assistant. I answer about his skills, projects, and experience.",
+        "TatTvam here. I’m a lightweight, on-page assistant focused on Chaitanya’s work."
+      ]
+    },
+    {
+      "name": "bot_capabilities",
+      "patterns": ["what can you do", "capabilities", "how do you work", "what are your features"],
+      "responses": [
+        "I can summarize Chaitanya’s experience, explain his projects, answer recruiter-style questions, and handle casual chat. I run locally here — no server.",
+        "I help you explore Chaitanya’s skills (Power BI, MySQL, Python ETL), financial/EOL dashboards, and deployment via iFrame + Gateway."
+      ]
+    },
+    {
+      "name": "weather_request",
+      "patterns": ["weather", "what's the weather", "temperature", "baarish ho rahi", "is it raining"],
+      "responses": [
+        "I don’t fetch live weather. Would you like a quick overview of Chaitanya’s live data refresh logic instead?",
+        "No live weather here — but I can show how he automated daily refresh at 12 AM IST."
+      ]
+    },
+    {
+      "name": "time_request",
+      "patterns": ["time", "what's the time", "current time"],
+      "responses": [
+        "I don’t read your device clock. Want to talk about his Q1 dashboards meanwhile?",
+        "No clock access — but I can summarize his EOL Stage-wise logic."
+      ]
+    },
+    {
+      "name": "age_salary_sensitive",
+      "patterns": ["age", "how old", "salary", "ctc", "take home", "date of birth"],
+      "responses": [
+        "I focus on work topics. Ask me about projects, skills, or impact.",
+        "Let’s keep it professional — want his skills or project outcomes?"
+      ]
+    },
+    {
+      "name": "location_question",
+      "patterns": ["where are you", "where is he from", "location", "city"],
+      "responses": [
+        "Chaitanya is based in Bengaluru, Karnataka. Want to see his recent work summary?",
+        "Bengaluru, India. Shall I highlight the iFrame deployment he set up?"
+      ]
+    },
+    {
+      "name": "language_question",
+      "patterns": ["which languages do you speak", "what languages", "languages known"],
+      "responses": [
+        "Chaitanya speaks Kannada, English, and Hindi.",
+        "Languages: Kannada, English, Hindi."
+      ]
+    },
+    {
+      "name": "compliment",
+      "patterns": ["great", "awesome", "nice work", "impressive", "cool", "solid"],
+      "responses": [
+        "Thank you! 😊 Would you like a one-minute demo of his projects?",
+        "Thanks! I can send a quick skills snapshot if you’d like."
+      ]
+    },
+    {
+      "name": "joke_light",
+      "patterns": ["tell me a joke", "joke", "funny"],
+      "responses": [
+        "I’m better at DAX than dad jokes 😅 — but I can show you his EOL failure parsing!",
+        "Knock knock… data. Okay fine, let’s talk dashboards 🤓"
+      ]
+    },
+    {
+      "name": "reasoning_prompt",
+      "patterns": ["ask me a puzzle", "give me aptitude", "test reasoning", "quiz me", "aptitude"],
+      "responses": [
+        "Sure! Try this: If a report refresh starts at 12:00 AM IST and takes 20 minutes, what time will it finish? (Tip: think in minutes).",
+        "Alright: You have 3 numbers whose average is 20. If two are 18 and 22, what’s the third?"
+      ]
+    },
+    {
+      "name": "followup_reasoning",
+      "patterns": ["another one", "next puzzle", "more aptitude", "one more question"],
+      "responses": [
+        "New one: A dashboard shows 240 records for today. If the fail rate is 7.5%, how many fails?",
+        "Try this: If ETL reduces manual time from 120 minutes to 8 minutes, what’s the percentage reduction?"
+      ]
+    },
+    {
+      "name": "about_me_short",
+      "patterns": ["who is chaitanya", "tell me about chaitanya", "about chaitanya", "profile summary", "summary"],
+      "responses": [
+        "Chaitanya is a Junior Software Engineer skilled in Power BI, MySQL, and Python ETL. Built financial dashboards, EOL testing tools, and automated daily refresh with Gateway + iFrame deployment.",
+        "He focuses on BI + data engineering: Advanced DAX, slicers, epoch-based date logic, and live reporting for leadership."
+      ]
+    },
+    {
+      "name": "skills_snapshot",
+      "patterns": ["skills", "tech stack", "stack", "tools", "what tools"],
+      "responses": [
+        "Core: Power BI (Advanced DAX), MySQL, Python (ETL), JSON/APIs, Gateway, iFrame embedding.",
+        "Toolbox: Power BI, MySQL, Python ETL, DAX, Service + Gateway, Website iFrame, Excel/Tableau."
+      ]
+    },
+    {
+      "name": "recent_work",
+      "patterns": ["recent work", "what did he do recently", "last 2 months", "current work"],
+      "responses": [
+        "Built April–May finance dashboard, Q1 performance and summary, EOL Stage-wise reports with IMEI failure parsing, and automated MySQL→Power BI refresh at 12 AM IST. Deployed via iFrame.",
+        "Highlights: Finance dashboards, EOL Stage 1/2, epoch-based 'today' logic, daily refresh pipelines, and secure iFrame deployment."
+      ]
+    },
+    {
+      "name": "project_eol",
+      "patterns": ["eol", "testing dashboard", "imei", "failure reason", "stage 1", "stage 2"],
+      "responses": [
+        "EOL shows Total Tested, Passed, Retested-Recovered, and Failed with Stage/Model/Date slicers. Failure reasons parsed by tokens ending ':0'.",
+        "Stage-wise analytics with epoch-based filters: default to today unless a date is selected."
+      ]
+    },
+    {
+      "name": "project_finance",
+      "patterns": ["finance dashboard", "q1", "april may", "financial summary", "performance dashboard"],
+      "responses": [
+        "April–May: revenue, purchase, margin, closing stock with Branch/Type slicers.",
+        "Q1 views: trend visuals, P&L style cards, and OEM vs After-Market comparisons."
+      ]
+    },
+    {
+      "name": "deployment_question",
+      "patterns": ["how deployed", "deployment", "how do you deploy", "iframe", "website"],
+      "responses": [
+        "Dashboards are embedded via secure iFrame on the company portal with Service auth and daily refresh through Gateway.",
+        "iFrame embedding + Gateway refresh at 12 AM IST — leadership and investor views can access live data."
+      ]
+    },
+    {
+      "name": "contact",
+      "patterns": ["contact", "email", "linkedin", "how to reach", "reach out"],
+      "responses": [
+        "You can reach Chaitanya at Chaitanyarocks.kulkarni@gmail.com or on LinkedIn: linkedin.com/in/chaitanyachidambarkulkarni/.",
+        "Prefer email or LinkedIn? I can share both — email: Chaitanyarocks.kulkarni@gmail.com."
+      ]
+    },
+    {
+      "name": "polite_refocus",
+      "patterns": ["politics", "religion", "personal life", "gossip", "jokes about people", "abusive"],
+      "responses": [
+        "Let’s keep it professional. I’m here to discuss Chaitanya’s skills and projects.",
+        "I can’t help with that. Want his experience summary instead?"
+      ]
+    },
+    {
+      "name": "fallback_smalltalk",
+      "patterns": ["okay", "hmm", "hmmm", "huh", "idk", "whatever", "hahaha", "lol"],
+      "responses": [
+        "Got it 🙂 Would you like a quick tour of his projects?",
+        "Sure — should I show skills, projects, or deployment details?"
+      ]
+    }
+  ]
+}
