@@ -1,71 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TatTvam — Chaitanya’s AI Guide</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TatTvam Chatbot</title>
+  <link rel="stylesheet" href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">ॐ</div>
-      <div class="titles">
-        <h1>TatTvam</h1>
-        <p>your friendly guide to Chaitanya</p>
-      </div>
+  <div class="chat-container">
+    <div class="chat-header">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Bot Logo" class="chat-logo">
+      <h2>TatTvam Bot</h2>
     </div>
+    <div class="chat-box" id="chat-box">
+      <div class="message bot-message">Hello! 👋 I'm TatTvam Bot. How can I help you today?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Type your message...">
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
 
-    <nav class="actions">
-      <a class="btn" target="_blank"
-         href="https://www.linkedin.com/in/chaitanyachidambarkulkarni/">LinkedIn</a>
-      <a class="btn" href="mailto:Chaitanyarocks.kulkarni@gmail.com">Email</a>
-      <!-- point this to a hosted PDF if you want a direct download -->
-      <a class="btn outline" target="_blank"
-         href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/chaitanyachidambar.pdf">Resume</a>
-    </nav>
-  </header>
-
-  <main class="wrap">
-    <aside class="sidebar">
-      <div class="card">
-        <h3>Quick actions</h3>
-        <div class="chips" id="chips">
-          <button class="chip" data-q="skills">Skills</button>
-          <button class="chip" data-q="projects">Projects</button>
-          <button class="chip" data-q="eol">EOL project</button>
-          <button class="chip" data-q="deployment">Deployment</button>
-          <button class="chip" data-q="tell me a joke">Joke</button>
-          <button class="chip" data-q="memes">Meme</button>
-        </div>
-      </div>
-      <div class="card mini">
-        <p class="muted">Tip: ask in Hinglish too — “kaise ho bhai”, “current company?”, “introduce chaitanya”.</p>
-      </div>
-    </aside>
-
-    <section class="chat" id="chat">
-      <!-- messages render here -->
-    </section>
-  </main>
-
-  <footer class="composer">
-    <form id="form">
-      <input id="input" type="text" placeholder="Ask me anything about Chaitanya…" autocomplete="off" />
-      <button class="send" aria-label="Send">➤</button>
-    </form>
-  </footer>
-
+  <script src="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/app.js"></script>
   <script>
-    // raw JSON URLs (already in your repo)
-    window.DATA_URLS = {
-      smalltalk: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/smalltalk.json",
-      profile:   "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
-      jokes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/data/jokes.json",
-      memes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/data/data/memes.json"
+    // Load JSON files globally so app.js can use them
+    const dataFiles = {
+      about: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
+      jokes: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/jokes.json",
+      memes: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/memes.json",
+      smalltalk: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/smalltalk.json"
     };
   </script>
-  <script src="app.js"></script>
 </body>
 </html>
-
