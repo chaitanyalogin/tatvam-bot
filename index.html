@@ -3,35 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TatTvam — Your AI Guide</title>
+  <title>TatTvam — Chaitanya’s AI Guide</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- WebLLM model loader -->
-  <script src="https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm/dist/web-llm.min.js"></script>
 </head>
 <body>
-  <header class="container">
-    <div class="title">
-      <h1>TatTvam</h1>
-      <p>The voice of Chaitanya — Ask me anything</p>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">ॐ</div>
+      <div class="titles">
+        <h1>TatTvam</h1>
+        <p>your friendly guide to Chaitanya</p>
+      </div>
     </div>
+
+    <nav class="actions">
+      <a class="btn" target="_blank"
+         href="https://www.linkedin.com/in/chaitanyachidambarkulkarni/">LinkedIn</a>
+      <a class="btn" href="mailto:Chaitanyarocks.kulkarni@gmail.com">Email</a>
+      <!-- point this to a hosted PDF if you want a direct download -->
+      <a class="btn outline" target="_blank"
+         href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/chaitanyachidambar.pdf">Resume</a>
+    </nav>
   </header>
 
-  <main class="container">
-    <section class="chat card">
-      <h2>Chat with TatTvam</h2>
-      <div id="chatWindow" class="chat-window"></div>
-      <form id="chatForm" class="chat-form">
-        <input id="userInput" type="text" placeholder="Ask something..." autocomplete="off" />
-        <button class="btn" type="submit">Send</button>
-      </form>
-      <div id="status" class="status">Loading model…</div>
+  <main class="wrap">
+    <aside class="sidebar">
+      <div class="card">
+        <h3>Quick actions</h3>
+        <div class="chips" id="chips">
+          <button class="chip" data-q="skills">Skills</button>
+          <button class="chip" data-q="projects">Projects</button>
+          <button class="chip" data-q="eol">EOL project</button>
+          <button class="chip" data-q="deployment">Deployment</button>
+          <button class="chip" data-q="tell me a joke">Joke</button>
+          <button class="chip" data-q="memes">Meme</button>
+        </div>
+      </div>
+      <div class="card mini">
+        <p class="muted">Tip: ask in Hinglish too — “kaise ho bhai”, “current company?”, “introduce chaitanya”.</p>
+      </div>
+    </aside>
+
+    <section class="chat" id="chat">
+      <!-- messages render here -->
     </section>
   </main>
 
-  <footer class="container foot">
-    <small>© 2025 Chaitanya — Powered by WebLLM • No tracking • No server</small>
+  <footer class="composer">
+    <form id="form">
+      <input id="input" type="text" placeholder="Ask me anything about Chaitanya…" autocomplete="off" />
+      <button class="send" aria-label="Send">➤</button>
+    </form>
   </footer>
 
+  <script>
+    // raw JSON URLs (already in your repo)
+    window.DATA_URLS = {
+      smalltalk: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/smalltalk.json",
+      profile:   "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
+      jokes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/data/jokes.json",
+      memes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/data/data/memes.json"
+    };
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
+
