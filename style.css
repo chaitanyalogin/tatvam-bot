@@ -17,7 +17,6 @@ body{
   background:rgba(11,14,18,.8); backdrop-filter: blur(8px);
 }
 .brand{display:flex; align-items:center; gap:.8rem}
-/* Adjust ONLY these two numbers to resize the logo */
 .logo{
   width:70px; height:28px; border-radius:6px; object-fit:contain;
   background:linear-gradient(135deg,var(--accent2),var(--accent));
@@ -58,6 +57,7 @@ body{
 .bubble{
   max-width:min(78ch, 90%); padding:.65rem .8rem; border-radius:16px; white-space:pre-wrap;
   border:1px solid var(--border);
+  overflow-wrap:anywhere; word-break:break-word; /* better wrapping */
 }
 .msg.user{justify-content:flex-end}
 .msg.user .bubble{background:#17202b}
@@ -92,60 +92,43 @@ body{
   .chat{height:62vh}
 }
 
-/* ========================= */
-/* Mobile polish (only overrides on phones) */
-/* ========================= */
-
-/* Better wrapping for long words/links so bubbles never overflow */
-.bubble{ overflow-wrap:anywhere; word-break:break-word; }
-
-/* Compact topbar and controls */
+/* ======== Phone tweaks (fit everything without scrolling) ======== */
 @media (max-width:600px){
-  .topbar{ padding:.6rem .8rem; gap:.6rem }
-  .brand{ gap:.6rem }
-  .logo{ width:56px; height:22px; border-radius:6px }
-  .titles h1{ font-size:1.1rem }
-  .titles p{ font-size:.78rem }
+  .topbar{padding:.6rem .8rem; gap:.6rem; flex-wrap:wrap}
+  .brand{flex:1; min-width:0; gap:.6rem}
+  .logo{height:22px; width:auto; max-width:160px; border-radius:4px}
+  .titles h1{font-size:1.1rem}
+  .titles p{font-size:.8rem}
 
-  .actions{ gap:.4rem }
-  .btn{ padding:.4rem .6rem; border-radius:8px; font-size:.85rem }
-  .btn.outline{ display:none } /* save space */
+  .actions{order:3; width:100%; justify-content:space-between; gap:.5rem; margin-top:.2rem}
+  .btn{flex:1; padding:.45rem .6rem; font-size:.85rem}
 
-  .wrap{ gap:.7rem; padding:.7rem; max-width:100% }
+  .wrap{padding:.7rem; gap:.7rem; max-width:100%}
 
-  /* Key change: shorter chat so the whole page fits without extra scroll */
-  .chat{ height:55svh; padding:.85rem }
+  /* KEY: make chat shorter so Quick actions + composer fit on one screen */
+  .chat{height:48svh; padding:.9rem}
 
-  .sidebar .card{ margin-bottom:.8rem }
-  .card.mini{ margin-bottom:.6rem }
+  /* Compact the sidebar cards to save vertical space */
+  .sidebar .card{padding:.75rem; margin-bottom:.6rem}
+  .sidebar .card h3{margin:0 0 .6rem 0; font-size:1.05rem}
+  .sidebar .card p{margin:.3rem 0 0 0; line-height:1.25; max-height:2.5em; overflow:hidden}
 
-  .composer{ padding:.5rem .8rem }
-  #form{ gap:.5rem; max-width:100% }
-  #input{ padding:.7rem .9rem; font-size:1rem }
-  .send{ padding:.7rem .9rem }
+  /* Chips: tighter and wrap nicely */
+  .chips{gap:.4rem}
+  .chip{padding:.35rem .6rem; font-size:.95rem}
+  .bubble{max-width:92%}
+
+  .composer{padding:.5rem .8rem}
+  #form{gap:.5rem; max-width:100%}
+  #input{padding:.7rem .9rem; font-size:1rem}
+  .send{padding:.7rem .9rem}
 }
 
-/* Chips scroll horizontally on very narrow phones */
-@media (max-width:600px){
-  .chips{
-    overflow-x:auto;
-    flex-wrap:nowrap;
-    -webkit-overflow-scrolling:touch;
-    gap:.4rem;
-  }
-  .chip{ white-space:nowrap; }
-}
-
-/* Ultra-small phones */
-@media (max-width:380px){
-  .logo{ width:48px; height:20px }
-  .titles h1{ font-size:1rem }
-  .titles p{ display:none }    /* keep header to one line */
-  .btn{ font-size:.8rem; padding:.36rem .5rem }
-  .chat{ height:53svh }
-}
-
-/* Avoid keyboard overlap on modern mobile */
-@supports (height: 100svh){
-  .chat{ padding-bottom:1rem }
+/* Extra-small phones */
+@media (max-width:420px){
+  .actions{display:none}
+  .logo{height:20px; max-width:70%}
+  .titles h1{font-size:1rem}
+  .titles p{display:none}      /* reduce header height */
+  .chat{height:46svh}          /* a bit shorter for tiny displays */
 }
