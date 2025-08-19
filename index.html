@@ -1,180 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>TatTvam Chatbot</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #222;
-      color: white;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      box-sizing: border-box;
-    }
-    header img {
-      height: 50px;
-      margin-right: 15px;
-      border-radius: 10px;
-    }
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-    }
-    #chatbox {
-      width: 90%;
-      max-width: 800px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-top: 20px;
-      padding: 15px;
-      overflow-y: auto;
-      height: 500px;
-    }
-    .message {
-      margin: 10px 0;
-    }
-    .user {
-      text-align: right;
-      color: blue;
-    }
-    .bot {
-      text-align: left;
-      color: green;
-    }
-    #inputArea {
-      margin-top: 10px;
-      width: 90%;
-      max-width: 800px;
-      display: flex;
-    }
-    #inputField {
-      flex: 1;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    #sendBtn {
-      padding: 10px 15px;
-      font-size: 16px;
-      border: none;
-      margin-left: 10px;
-      background: #222;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tatvam Chatbot</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <img src="A_logo_design_features_a_square_icon_to_the_left_o.png" alt="TatTvam Logo">
-    <h1>TatTvam Chatbot</h1>
+  <header class="chat-header">
+    <img src="logo.png" alt="Tatvam Logo" class="logo" />
+    <h1>Tatvam Chatbot</h1>
   </header>
 
-  <div id="chatbox"></div>
+  <main class="chat-container" id="chat-container">
+    <!-- Messages will appear here -->
+  </main>
 
-  <div id="inputArea">
-    <input type="text" id="inputField" placeholder="Ask me anything...">
-    <button id="sendBtn">Send</button>
-  </div>
+  <footer class="chat-footer">
+    <input type="text" id="user-input" placeholder="Type a message..." />
+    <button id="send-btn">Send</button>
+  </footer>
 
-  <script>
-    const data = {
-      about: {
-        name: "Chaitanya Chidambar Kulkarni",
-        title: "Junior Software Engineer at iTriangle Infotech",
-        summary: "Chaitanya works on Power BI, MySQL, APIs, JSON integrations, and automation. He builds dashboards, EOL tools, and pipelines with live refresh and dynamic filters.",
-        professional_projects: [
-          "Financial MIS dashboards (margin, stock, purchase vs sales)",
-          "EOL Stage 1 & Stage 2 dashboards with IMEI-level analysis",
-          "JSON & API integrations into Power BI",
-          "Automated MySQL pipelines",
-          "Embedding dashboards securely on websites"
-        ],
-        personal_projects: [
-          "Fraud Detection Model (Random Forest + Streamlit)",
-          "Movie Recommendation System (Cosine + TF-IDF)",
-          "SMS Spam Classifier",
-          "TatTvam Chatbot (this one!)"
-        ]
-      },
-      jokes: [
-        "Power BI report failed to refresh at 12 AM… just like Chaitanya’s motivation after HR’s email.",
-        "SQL query said: ‘I need proper relationships.’ Chaitanya whispered: ‘Same, bro.’",
-        "Why did the KPI cross the road? To escape Chaitanya’s dashboard turning it red again.",
-        "Power BI slicer: ‘I filter everything.’ Chaitanya’s brain: ‘Except overthinking.’",
-        "Unit test failed: expected 1 row, got 0. Just like Chaitanya’s interview callbacks.",
-        "Manager: ‘Why is this table empty?’ Chaitanya: ‘Because so is my soul after debugging it for 6 hours.’",
-        "When Chaitanya writes DAX, even the compiler takes a coffee break.",
-        "Why did the API call timeout? Because it saw Chaitanya’s internet speed in Bangalore after Rain."
-      ],
-      puzzles: [
-        "I speak without a mouth and hear without ears. What am I? (Answer: An Echo)",
-        "The more of me you take, the more you leave behind. What am I? (Answer: Footsteps)"
-      ],
-      memes: [
-        "https://i.imgur.com/xyz123.jpg",
-        "https://i.imgur.com/abc456.png"
-      ]
-    };
-
-    const chatbox = document.getElementById("chatbox");
-    const inputField = document.getElementById("inputField");
-    const sendBtn = document.getElementById("sendBtn");
-
-    function appendMessage(text, sender) {
-      const div = document.createElement("div");
-      div.className = "message " + sender;
-      div.textContent = text;
-      chatbox.appendChild(div);
-      chatbox.scrollTop = chatbox.scrollHeight;
-    }
-
-    function botReply(userMsg) {
-      const msg = userMsg.toLowerCase();
-
-      if (msg.includes("who is chaitanya")) {
-        return `Chaitanya is ${data.about.title}. He works on ${data.about.summary}`;
-      } else if (msg.includes("about")) {
-        return `${data.about.name} - ${data.about.title}. ${data.about.summary}`;
-      } else if (msg.includes("project")) {
-        return `Professional projects: ${data.about.professional_projects.join(", ")}. Personal projects: ${data.about.personal_projects.join(", ")}`;
-      } else if (msg.includes("joke")) {
-        return data.jokes[Math.floor(Math.random() * data.jokes.length)];
-      } else if (msg.includes("puzzle")) {
-        return data.puzzles[Math.floor(Math.random() * data.puzzles.length)];
-      } else if (msg.includes("meme")) {
-        return "Here’s a meme: " + data.memes[Math.floor(Math.random() * data.memes.length)];
-      } else {
-        return "I’m TatTvam. Ask me about Chaitanya, his projects, jokes, puzzles, or memes!";
-      }
-    }
-
-    sendBtn.addEventListener("click", () => {
-      const userMsg = inputField.value.trim();
-      if (!userMsg) return;
-      appendMessage(userMsg, "user");
-      const reply = botReply(userMsg);
-      appendMessage(reply, "bot");
-      inputField.value = "";
-    });
-
-    inputField.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendBtn.click();
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
