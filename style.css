@@ -17,7 +17,6 @@ body{
   background:rgba(11,14,18,.8); backdrop-filter: blur(8px);
 }
 .brand{display:flex; align-items:center; gap:.8rem}
-/* Adjust ONLY these two numbers to resize the logo */
 .logo{
   width:70px; height:28px; border-radius:6px; object-fit:contain;
   background:linear-gradient(135deg,var(--accent2),var(--accent));
@@ -85,70 +84,39 @@ body{
 }
 .send:hover{border-color:var(--accent)}
 
+/* Tablet */
 @media (max-width:900px){
   .wrap{grid-template-columns:1fr}
   .sidebar{order:2}
   .chat{height:62vh}
 }
 
-/* ========================= */
-/* Mobile polish (non-breaking)
-   - Keeps desktop exactly as-is
-   - Only overrides on small screens
-   - Adds safe text wrapping everywhere */
-/* ========================= */
-
-/* Better wrapping for long words/links */
-.bubble{
-  overflow-wrap:anywhere;
-  word-break:break-word;
-}
-
-/* Make chips scroll horizontally on narrow phones */
+/* ======== Phone tweaks (fix logo + header + spacing) ======== */
 @media (max-width:600px){
-  .chips{
-    overflow-x:auto;
-    flex-wrap:nowrap;         /* override wrap on small screens */
-    -webkit-overflow-scrolling:touch;
-    gap:.4rem;
+  .topbar{padding:.6rem .8rem; gap:.6rem; flex-wrap:wrap}
+  .brand{flex:1; min-width:0; gap:.6rem}
+  .logo{
+    height:22px;          /* keep aspect on mobile */
+    width:auto;           /* let width shrink naturally */
+    max-width:160px;      /* prevent overflow */
+    border-radius:4px;
   }
-  .chip{ white-space:nowrap; }
-}
-
-/* Compact topbar & layout on phones */
-@media (max-width:600px){
-  .topbar{ padding:.6rem .8rem; gap:.6rem }
-  .brand{ gap:.6rem }
-  .logo{ width:56px; height:22px; border-radius:6px } /* smaller so full wordmark fits */
-  .titles h1{ font-size:1.1rem }
-  .titles p{ font-size:.78rem }
-
-  .actions{ gap:.4rem }
-  .btn{ padding:.4rem .6rem; border-radius:8px; font-size:.85rem }
-  .btn.outline{ display:none } /* hide if space is tight */
-
-  .wrap{ gap:.7rem; padding:.7rem; max-width:100% }
-  .chat{
-    height:60svh;     /* more reliable on mobile than vh */
-    padding:.85rem;
+  .titles h1{font-size:1.1rem}
+  .titles p{font-size:.8rem}
+  .actions{
+    order:3; width:100%; justify-content:space-between; gap:.5rem; margin-top:.2rem;
   }
-
-  .composer{ padding:.5rem .8rem }
-  #form{ gap:.5rem; max-width:100% }
-  #input{ padding:.7rem .9rem; font-size:1rem }
-  .send{ padding:.7rem .9rem }
+  .btn{flex:1; padding:.45rem .6rem; font-size:.85rem}
+  .wrap{padding:.8rem; gap:.8rem}
+  .sidebar .card{padding:.9rem}
+  .chips{gap:.4rem}
+  .bubble{max-width:92%}
 }
 
-/* Ultra small phones */
-@media (max-width:380px){
-  .logo{ width:48px; height:20px }
-  .titles h1{ font-size:1rem }
-  .titles p{ display:none }   /* hide subtitle to keep one-line header */
-  .btn{ font-size:.8rem; padding:.36rem .5rem }
-  .chat{ height:58svh }
-}
-
-/* Prevent keyboard overlap on iOS/Android */
-@supports (height: 100svh){
-  .chat{ padding-bottom:1rem }
+/* Extra-small phones: hide action buttons to give logo room */
+@media (max-width:420px){
+  .actions{display:none}
+  .logo{height:20px; max-width:70%}
+  .titles h1{font-size:1rem}
+  .titles p{font-size:.78rem}
 }
