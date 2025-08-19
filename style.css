@@ -19,7 +19,7 @@ body{
 .brand{display:flex; align-items:center; gap:.8rem}
 /* Adjust ONLY these two numbers to resize the logo */
 .logo{
-  width:40px; height:40px; border-radius:10px; object-fit:cover;
+  width:70px; height:28px; border-radius:6px; object-fit:contain;
   background:linear-gradient(135deg,var(--accent2),var(--accent));
 }
 .titles h1{margin:0; font-size:1.35rem}
