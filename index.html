@@ -29,16 +29,19 @@
       <div class="card">
         <h3>Quick actions</h3>
         <div class="chips" id="chips">
+          <button class="chip" data-q="who is chaitanya">Who is Chaitanya?</button>
+          <button class="chip" data-q="current company">Current company</button>
           <button class="chip" data-q="skills">Skills</button>
           <button class="chip" data-q="projects">Projects</button>
           <button class="chip" data-q="eol">EOL project</button>
           <button class="chip" data-q="deployment">Deployment</button>
           <button class="chip" data-q="tell me a joke">Joke</button>
           <button class="chip" data-q="memes">Meme</button>
-          <button class="chip" data-q="who is chaitanya">Who is Chaitanya?</button>
         </div>
       </div>
-      <div class="card mini"><p class="muted">Tip: ask in Hinglish — “kaise ho bhai”, “current company?”, “introduce chaitanya”.</p></div>
+      <div class="card mini">
+        <p class="muted">Tip: ask in Hinglish — “kaise ho bhai”, “current company?”, “introduce chaitanya”.</p>
+      </div>
     </aside>
 
     <section class="chat" id="chat" aria-live="polite" aria-label="TatTvam chat window"></section>
@@ -52,7 +55,7 @@
     </form>
   </footer>
 
-  <!-- Correct JSON URLs -->
+  <!-- Data sources (correct URLs) -->
   <script>
     window.DATA_URLS = {
       profile:   "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
