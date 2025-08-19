@@ -1,55 +1,69 @@
-// ========= loader =========
+// ====== Load data ======
 const urls = window.DATA_URLS;
+
 async function getJSON(url){
   const r = await fetch(url, {cache:"no-store"});
   if(!r.ok) throw new Error(`${url} ${r.status}`);
   return r.json();
 }
+
 const DATA = {};
 (async () => {
-  [DATA.smalltalk, DATA.profile, DATA.jokes, DATA.memes] = await Promise.all([
-    getJSON(urls.smalltalk), getJSON(urls.profile), getJSON(urls.jokes), getJSON(urls.memes)
+  const [profile, smalltalk, jokes, memes] = await Promise.all([
+    getJSON(urls.profile),
+    getJSON(urls.smalltalk),
+    getJSON(urls.jokes),
+    getJSON(urls.memes)
   ]);
+  DATA.profile = profile;
+  DATA.smalltalk = smalltalk;
+  DATA.jokes = jokes;
+  DATA.memes = memes;
+  buildIntents();
   boot();
 })();
 
-// ========= helpers/UI =========
-const chat = document.getElementById("chat");
-const form = document.getElementById("form");
+// ====== DOM helpers ======
+const chat  = document.getElementById("chat");
+const form  = document.getElementById("form");
 const input = document.getElementById("input");
 
-function addMsg(role, text){
+function addMsg(role, text, typing=false){
   const el = document.createElement("div");
-  el.className = `msg ${role}`;
-  el.innerHTML = `<div class="bubble">${escapeHtml(text)}</div>`;
-  chat.appendChild(el); chat.scrollTop = chat.scrollHeight;
+  el.className = `msg ${role}${typing ? " typing": ""}`;
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+
+  if(typing){
+    bubble.textContent = "";
+    bubble.appendChild(dot()); bubble.appendChild(dot()); bubble.appendChild(dot());
+  }
+  el.appendChild(bubble);
+  chat.appendChild(el);
+  chat.scrollTop = chat.scrollHeight;
   return el;
 }
-function addTyping(){
-  const el = document.createElement("div");
-  el.className = "msg bot typing";
-  el.innerHTML = `<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
-  chat.appendChild(el); chat.scrollTop = chat.scrollHeight;
-  return (finalText)=>{
-    el.classList.remove("typing");
-    el.querySelector(".bubble").textContent = finalText;
-    chat.scrollTop = chat.scrollHeight;
-  };
-}
-function escapeHtml(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function dot(){ const d=document.createElement("div"); d.className="dot"; return d; }
+function replaceText(el, text){ el.querySelector(".bubble").textContent = text; }
 const rand = a => a[Math.floor(Math.random()*a.length)];
 const clamp = (t,n=550)=> t.length<=n ? t : (t.slice(0,n).split(/(?<=[.!?])\s/).slice(0,-1).join(" ") || t.slice(0,n))+"…";
 const norm  = t => t.toLowerCase().replace(/[^\w\s\u0900-\u097F\+\-\*\/%().!?']/g," ").replace(/\s+/g," ").trim();
 const anyIn = (t, arr) => arr.some(x => t.includes(x));
-const STOPWORDS = new Set("the a an of and or to is are was were be been being this that these those i you he she they we me my our your his her their in on at for with from by as it it's its about tell say define explain".split(" "));
+const sleep = ms => new Promise(r=>setTimeout(r, ms));
 
-// ========= smalltalk (skip joke/meme intents; we use external files) =========
+// ====== Smalltalk (skip joke/meme from pack; we use external files) ======
 const SKIP = new Set(["jokes_tech","jokes_general","memes_indian","memes_english","memes_tatvam_self"]);
 let INTENTS = [];
+
 function buildIntents(){
   INTENTS = (DATA.smalltalk?.intents || [])
     .filter(it => !SKIP.has(it.name))
-    .map(it => ({name: it.name, patterns: (it.patterns||[]).map(norm), responses: it.responses||[]}));
+    .map(it => ({
+      name: it.name,
+      patterns: (it.patterns||[]).map(norm),
+      responses: it.responses||[]
+    }));
 }
 function smalltalkReply(t){
   const hits = INTENTS.filter(it => it.patterns.some(p => p && t.includes(p)));
@@ -57,38 +71,15 @@ function smalltalkReply(t){
   return null;
 }
 
-// ========= profile answers & cues =========
-const CUES = {
-  who: ["who is chaitanya","who is chaitanya kulkarni","introduce chaitanya","about chaitanya","profile summary","who is he","what is chaitanya"],
-  company: ["current company","which company","present company","employer","where does he work"],
-  education: ["education","degree","qualification","college","study","studies"],
-  skills: ["skills","tech stack","stack","tools","technology","what tools"],
-  projects: ["projects","project list","what all projects","recent work","project overview"],
-  personal: ["personal projects","chatbot project","tatvam chatbot","sms spam","fraud detection","movie recommendation","recommender"],
-  eol: ["eol","stage 1","stage 2","imei","failure reason","testing dashboard"],
-  etl: ["etl","pipeline","python etl","refresh","gateway","automation","daily refresh"],
-  finance: ["finance","q1","april may","financial summary","performance dashboard"],
-  deployment: ["deploy","deployment","iframe","website","embed","publish"]
-};
-function similarity(a,b){
-  a=norm(a); b=norm(b);
-  const len = Math.max(a.length,b.length)||1;
-  let same=0; for(const w of b.split(" ")){ if(a.includes(w)) same+=w.length }
-  return same/len;
-}
-function bestLabel(t){
-  let best=null, score=0;
-  for(const [lbl,cues] of Object.entries(CUES)){
-    for(const c of cues){ const s = similarity(t,c); if(s>score){score=s; best=lbl} }
-  }
-  return score>=0.72 ? best : null;
+// ====== Profile answers (+ playful WHO) ======
+function wittyWho(){
+  // Uses your `about` array from about_chaitanya.json
+  const aboutLines = DATA.profile?.about || [];
+  const funny = aboutLines[0] || "Chaitanya is an electronic device 😜 Just kidding! Here you go:";
+  const detail = aboutLines[1] || DATA.profile?.summary || "";
+  return `${funny}\n${detail}`;
 }
 
-// witty who
-function wittyWho(){
-  return "Chaitanya is an electronic device 😜 Just kidding! Here you go:\n" +
-         "Chaitanyachidambar Kulkarni is a Junior Software Engineer at iTriangle Infotech (Bengaluru) focused on Power BI, MySQL and Python ETL. Built finance & EOL dashboards, automated 12 AM refresh via Gateway, parsed IMEI failure reasons, and deployed secure iFrame dashboards.";
-}
 function profileCompany(){
   const e = DATA.profile?.experience?.[0];
   return e ? `Current company: ${e.company} — role: ${e.title} (${e.duration}).` : "Company info not available.";
@@ -102,32 +93,72 @@ function profileEducation(){
 }
 function profileSkills(){
   const ts = DATA.profile?.technical_skills || {};
-  const lines = Object.entries(ts).map(([k,v]) => `${k.replace(/_/g," ").replace(/\b\w/g,m=>m.toUpperCase())}: ${v.join(", ")}`);
+  const lines = Object.entries(ts).map(([k,v]) => `${title(k)}: ${v.join(", ")}`);
   return "Skills:\n- " + lines.join("\n- ");
 }
+function title(s){return s.replace(/_/g," ").replace(/\b\w/g,m=>m.toUpperCase())}
 function profileProjects(limit=8){
   const p = (DATA.profile?.projects||[]).slice(0,limit).map(x=>`- ${x.name}: ${x.purpose||""}`);
   return p.length ? "Projects:\n" + p.join("\n") : "Projects: See profile.";
 }
 function profilePersonalProjects(){
-  const list = (DATA.profile?.projects||[]).filter(p =>
+  const all = DATA.profile?.projects || [];
+  const personals = all.filter(p =>
     /personal/i.test(p.name) ||
-    /(chatbot|spam|fraud|recommend)/i.test([p.name, ...(p.details||[])].join(" "))
+    /(Chatbot|Fraud|Recommendation|Recommender|Spam)/i.test(p.name)
   );
-  if(!list.length) return "Personal projects: TatTvam chatbot, SMS Spam Classifier, Fraud Detection, Movie Recommender.";
-  return "Personal projects:\n" + list.map(p=>`- ${p.name}: ${p.purpose||p.details?.[0]||""}`).join("\n");
+  if(!personals.length) return profileProjects();
+  return "Personal Projects:\n" + personals.map(x=>`- ${x.name}: ${x.purpose||x.details?.[0]||""}`).join("\n");
 }
-function profileChatbot(){ // explicit answer when user asks "chatbot"
-  const p = (DATA.profile?.projects||[]).find(x=>/tatvam.*chatbot/i.test(x.name));
-  if(!p) return "TatTvam — personal chatbot hosted on GitHub Pages; answers career questions using JSON knowledge base.";
-  return `${p.name}:\n- ${p.purpose}\n- ${((p.details||[]).slice(0,3)).map(d=>"• "+d).join("\n")}`;
+function profileEOL(){
+  return "EOL shows Total Tested, Passed, Retested-Recovered, and Failed with Stage/Model/Date slicers. Failure reasons parsed by tokens ending ':0'. Default-to-today via epoch logic.";
+}
+function profileETL(){
+  return "Python ETL automates MySQL → Power BI with daily refresh at 12:00 AM IST via Gateway. Goal: zero manual reporting and stable leadership views.";
+}
+function profileFinance(){
+  return "Finance dashboards (April–May & Q1): revenue, purchase, margin, closing stock; Branch/Type/Month slicers; OEM vs After-Market comparisons; clean trend visuals.";
+}
+function profileDeploy(){
+  return "Dashboards embedded via secure iFrame on the company portal (Service auth) with daily refresh via Gateway.";
 }
 
-// ========= jokes & memes =========
+// ====== Lightweight NLP cues ======
+const CUES = {
+  who: ["who is chaitanya","what is chaitanya","introduce chaitanya","about chaitanya","profile summary","who is he","who is chaitanya kulkarni"],
+  company: ["company","current company","which company","present company","employer","where does he work"],
+  education: ["education","degree","qualification","college","study","studies","what did he study","qualifications"],
+  skills: ["skills","tech stack","stack","tools","technology","what tools"],
+  projects: ["projects","project list","what all projects","overview of projects","work done","recent work"],
+  personal: ["personal projects","side projects","own projects","private projects"],
+  eol: ["eol","stage 1","stage 2","imei","failure reason","testing dashboard"],
+  etl: ["etl","pipeline","python etl","refresh","gateway","automation","daily refresh"],
+  finance: ["finance","q1","april may","financial summary","performance dashboard"],
+  deployment: ["deploy","deployment","iframe","website","embed","publish"]
+};
+function bestLabel(t){
+  let best=null, score=0;
+  for(const [lbl,cues] of Object.entries(CUES)){
+    for(const c of cues){
+      const s = similarity(t,c);
+      if(s>score){score=s; best=lbl}
+    }
+  }
+  return score>=0.72 ? best : null;
+}
+function similarity(a,b){
+  a=norm(a); b=norm(b);
+  const len = Math.max(a.length,b.length)||1;
+  let same=0;
+  for(const w of b.split(" ")){ if(a.includes(w)) same+=w.length }
+  return same/len;
+}
+
+// ====== Jokes & Memes (from your files) ======
 function randomJoke(){ return rand(DATA.jokes?.jokes || ["No jokes loaded 😅"]); }
 function randomMeme(){ return rand(DATA.memes?.memes || ["No memes loaded 😅"]); }
 
-// ========= math =========
+// ====== Math (safe-ish) ======
 const mathRe = /(?<!\w)([\d\.\s+\-*/%()]+)(?!\w)/;
 function tryMath(s){
   const m = s.toLowerCase().match(mathRe);
@@ -141,7 +172,7 @@ function tryMath(s){
   return null;
 }
 
-// ========= web summary (guarded) =========
+// ====== Web summaries (no links) ======
 async function ddgIA(q){
   try{
     const u = "https://api.duckduckgo.com/?format=json&no_html=1&no_redirect=1&q="+encodeURIComponent(q);
@@ -163,17 +194,12 @@ async function wikiSummary(q){
     return j.extract ? clamp(j.extract) : null;
   }catch(_){ return null }
 }
-function shouldWebSearch(q){
-  const t = norm(q);
-  const words = t.split(" ").filter(w=>w && !STOPWORDS.has(w));
-  const longEnough = words.length >= 3;
-  const hasQ = /(what|who|when|where|why|how|define|meaning|explain)\b/.test(t);
-  return longEnough && hasQ;
-}
 async function webSummary(q){ return await ddgIA(q) || await wikiSummary(q) || null; }
 
-// ========= router =========
+// ====== Router ======
 const RUDE = ["shut up","stop it","be quiet","chup","band kar","chup kar"];
+const CASUAL = ["hi","hello","hey","namaste","hola","wassup","what's up","whats up","good morning","gm","good evening","ge","thanks","shukriya","lol","hahaha","who are you"];
+const CAREER = ["project","projects","experience","skills","tech stack","eol","finance","q1","april","may","deployment","iframe","gateway","resume","summary","profile","linkedin","email","company","current company","which company","who is chaitanya","what is chaitanya","education","degree","qualification","introduce chaitanya","present company","personal projects"];
 
 function playfulFallback(){
   const lines = [
@@ -187,73 +213,77 @@ function playfulFallback(){
 async function respond(q){
   const t = norm(q);
 
-  // rude
-  if(anyIn(t, RUDE)) return "Chill bhai 😄 — jokes sunaoon ya projects bataoon?";
+  if(RUDE.some(k=>t.includes(k))) return "Chill bhai 😄 — jokes sunaoon ya projects bataoon?";
 
-  // math
-  const m = tryMath(q); if(m) return m;
+  const math = tryMath(q);
+  if(math) return math;
 
-  // jokes / memes (first-class)
+  // Jokes / Memes fast path
   if(t.includes("joke")) return randomJoke();
   if(t.includes("meme") || t.includes("memes")) return randomMeme();
 
-  // explicit project names
-  if(anyIn(t, CUES.personal)) return profilePersonalProjects();
-  if(/chat\s*bot|chatbot/i.test(q)) return profileChatbot();
-
-  // strong “who is chaitanya” rule
-  if(/who\s+is\s+chaitanya/.test(t) || /introduce\s+chaitanya/.test(t) || /about\s+chaitanya/.test(t)){
-    return wittyWho();
-  }
-
-  // smalltalk hit
+  // Smalltalk direct match
   const st = smalltalkReply(t);
   if(st) return st;
 
-  // career-ish via cues
-  const lbl = bestLabel(t);
-  if(lbl==="company") return profileCompany();
-  if(lbl==="education") return profileEducation();
-  if(lbl==="skills") return profileSkills();
-  if(lbl==="projects") return profileProjects();
-  if(lbl==="eol") return "EOL shows Total Tested, Passed, Retested-Recovered, Failed with Stage/Model/Date slicers. Failure reasons parsed by tokens ending ':0'.";
-  if(lbl==="etl") return "Python ETL automates MySQL → Power BI with daily refresh at 12:00 AM IST via Gateway.";
-  if(lbl==="finance") return "Finance dashboards (April–May & Q1): revenue, purchase, margin, closing stock; OEM vs After-Market comparisons.";
-  if(lbl==="deployment") return "Dashboards embedded via secure iFrame on the company portal (Service auth) with daily refresh via Gateway.";
-  if(lbl==="who") return wittyWho();
+  // Career / profile
+  if(CAREER.some(k=>t.includes(k)) || bestLabel(t)){
+    const lbl = bestLabel(t);
+    if(lbl==="who")       return wittyWho();
+    if(lbl==="company")   return profileCompany();
+    if(lbl==="education") return profileEducation();
+    if(lbl==="skills")    return profileSkills();
+    if(lbl==="projects")  return profileProjects();
+    if(lbl==="personal")  return profilePersonalProjects();
+    if(lbl==="eol")       return profileEOL();
+    if(lbl==="etl")       return profileETL();
+    if(lbl==="finance")   return profileFinance();
+    if(lbl==="deployment")return profileDeploy();
 
-  // guarded web answer
-  if(shouldWebSearch(q)){
-    const web = await webSummary(q);
-    if(web) return web;
+    // explicit keywords fallback
+    if(t.includes("who is chaitanya") || t.includes("what is chaitanya") || t.includes("introduce chaitanya"))
+      return wittyWho();
   }
+
+  // Last resort: web summary (no links)
+  const web = await webSummary(q);
+  if(web) return web;
 
   return playfulFallback();
 }
 
-// ========= boot + UX (typing) =========
+// ====== Boot & UI behaviour ======
 function boot(){
-  buildIntents();
   addMsg("bot","Hey there! 👋 I’m TatTvam.\nAsk me about Chaitanya’s work, projects, skills — or say “tell me a joke”.");
 }
 
 form.addEventListener("submit", async (e)=>{
   e.preventDefault();
-  const q = input.value.trim(); if(!q) return;
-  addMsg("user", q); input.value="";
+  const q = input.value.trim();
+  if(!q) return;
 
-  const finishTyping = addTyping();
-  const started = performance.now();
-  let a = "…";
-  try{ a = await respond(q); }catch(err){ a = "Something went wrong. Try again."; console.error(err); }
-  const elapsed = performance.now() - started;
-  const MIN = 700; // ms
-  const wait = Math.max(0, MIN - elapsed);
-  setTimeout(()=>finishTyping(a), wait);
+  addMsg("user", q);
+  input.value = "";
+
+  // typing indicator + small random delay for “thinking…” feel
+  const typing = addMsg("bot","", true);
+  await sleep(500 + Math.random()*600);
+
+  try{
+    const a = await respond(q);
+    replaceText(typing, a);
+    typing.classList.remove("typing");
+  }catch(err){
+    replaceText(typing, "Something went wrong. Try again.");
+    typing.classList.remove("typing");
+    console.error(err);
+  }
 });
 
-// chips
+// quick chips
 document.getElementById("chips").addEventListener("click", e=>{
-  const b = e.target.closest(".chip"); if(!b) return;
-  input.value = b.dataset.q; form.requestSubmit();
+  const b = e.target.closest(".chip");
+  if(!b) return;
+  input.value = b.dataset.q;
+  form.requestSubmit();
 });
