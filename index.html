@@ -1,77 +1,180 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TatTvam — Chaitanya’s AI Guide</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="color-scheme" content="dark light" />
+  <meta charset="UTF-8">
+  <title>TatTvam Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #222;
+      color: white;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+    header img {
+      height: 50px;
+      margin-right: 15px;
+      border-radius: 10px;
+    }
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+    #chatbox {
+      width: 90%;
+      max-width: 800px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      padding: 15px;
+      overflow-y: auto;
+      height: 500px;
+    }
+    .message {
+      margin: 10px 0;
+    }
+    .user {
+      text-align: right;
+      color: blue;
+    }
+    .bot {
+      text-align: left;
+      color: green;
+    }
+    #inputArea {
+      margin-top: 10px;
+      width: 90%;
+      max-width: 800px;
+      display: flex;
+    }
+    #inputField {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #sendBtn {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      margin-left: 10px;
+      background: #222;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">TT</div>
-      <div class="titles">
-        <h1>TatTvam</h1>
-        <p>your friendly guide to Chaitanya</p>
-      </div>
-    </div>
-    <nav class="actions">
-      <a class="btn" target="_blank"
-         href="https://www.linkedin.com/in/chaitanyachidambarkulkarni/">LinkedIn</a>
-      <a class="btn" href="mailto:Chaitanyarocks.kulkarni@gmail.com">Email</a>
-      <a class="btn outline" target="_blank"
-         href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/chaitanyachidambar.pdf">Resume</a>
-    </nav>
+  <header>
+    <img src="A_logo_design_features_a_square_icon_to_the_left_o.png" alt="TatTvam Logo">
+    <h1>TatTvam Chatbot</h1>
   </header>
 
-  <main class="wrap">
-    <section class="chatpane">
-      <div class="chat" id="chat"></div>
-      <footer class="composer">
-        <form id="form">
-          <input id="input" type="text" placeholder="Ask about Chaitanya… try: personal projects / current company / skills / EOL" autocomplete="off" />
-          <button class="send" aria-label="Send">➤</button>
-        </form>
-      </footer>
-    </section>
+  <div id="chatbox"></div>
 
-    <aside class="sidebar">
-      <div class="card profile" id="profileCard">
-        <!-- populated by JS -->
-      </div>
-
-      <div class="card">
-        <h3>Quick actions</h3>
-        <div class="chips" id="chips">
-          <button class="chip" data-q="who is chaitanya">Who is Chaitanya?</button>
-          <button class="chip" data-q="current company">Current company</button>
-          <button class="chip" data-q="skills">Skills</button>
-          <button class="chip" data-q="projects">Projects</button>
-          <button class="chip" data-q="personal projects">Personal projects</button>
-          <button class="chip" data-q="education">Education</button>
-          <button class="chip" data-q="eol">EOL project</button>
-          <button class="chip" data-q="deployment">Deployment</button>
-          <button class="chip" data-q="tell me a joke">Joke</button>
-          <button class="chip" data-q="meme">Meme</button>
-        </div>
-      </div>
-
-      <div class="card mini">
-        <p class="muted">Tip: Ask in Hinglish too — “kaise ho bhai”, “present company?”, “internship experience?”, “explain ETL”.</p>
-      </div>
-    </aside>
-  </main>
+  <div id="inputArea">
+    <input type="text" id="inputField" placeholder="Ask me anything...">
+    <button id="sendBtn">Send</button>
+  </div>
 
   <script>
-    // 🔗 Your canonical JSON URLs (as you provided)
-    window.DATA_URLS = {
-      profile:   "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
-      smalltalk: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/smalltalk.json",
-      jokes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/jokes.json",
-      memes:     "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/memes.json"
+    const data = {
+      about: {
+        name: "Chaitanya Chidambar Kulkarni",
+        title: "Junior Software Engineer at iTriangle Infotech",
+        summary: "Chaitanya works on Power BI, MySQL, APIs, JSON integrations, and automation. He builds dashboards, EOL tools, and pipelines with live refresh and dynamic filters.",
+        professional_projects: [
+          "Financial MIS dashboards (margin, stock, purchase vs sales)",
+          "EOL Stage 1 & Stage 2 dashboards with IMEI-level analysis",
+          "JSON & API integrations into Power BI",
+          "Automated MySQL pipelines",
+          "Embedding dashboards securely on websites"
+        ],
+        personal_projects: [
+          "Fraud Detection Model (Random Forest + Streamlit)",
+          "Movie Recommendation System (Cosine + TF-IDF)",
+          "SMS Spam Classifier",
+          "TatTvam Chatbot (this one!)"
+        ]
+      },
+      jokes: [
+        "Power BI report failed to refresh at 12 AM… just like Chaitanya’s motivation after HR’s email.",
+        "SQL query said: ‘I need proper relationships.’ Chaitanya whispered: ‘Same, bro.’",
+        "Why did the KPI cross the road? To escape Chaitanya’s dashboard turning it red again.",
+        "Power BI slicer: ‘I filter everything.’ Chaitanya’s brain: ‘Except overthinking.’",
+        "Unit test failed: expected 1 row, got 0. Just like Chaitanya’s interview callbacks.",
+        "Manager: ‘Why is this table empty?’ Chaitanya: ‘Because so is my soul after debugging it for 6 hours.’",
+        "When Chaitanya writes DAX, even the compiler takes a coffee break.",
+        "Why did the API call timeout? Because it saw Chaitanya’s internet speed in Bangalore after Rain."
+      ],
+      puzzles: [
+        "I speak without a mouth and hear without ears. What am I? (Answer: An Echo)",
+        "The more of me you take, the more you leave behind. What am I? (Answer: Footsteps)"
+      ],
+      memes: [
+        "https://i.imgur.com/xyz123.jpg",
+        "https://i.imgur.com/abc456.png"
+      ]
     };
+
+    const chatbox = document.getElementById("chatbox");
+    const inputField = document.getElementById("inputField");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function appendMessage(text, sender) {
+      const div = document.createElement("div");
+      div.className = "message " + sender;
+      div.textContent = text;
+      chatbox.appendChild(div);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function botReply(userMsg) {
+      const msg = userMsg.toLowerCase();
+
+      if (msg.includes("who is chaitanya")) {
+        return `Chaitanya is ${data.about.title}. He works on ${data.about.summary}`;
+      } else if (msg.includes("about")) {
+        return `${data.about.name} - ${data.about.title}. ${data.about.summary}`;
+      } else if (msg.includes("project")) {
+        return `Professional projects: ${data.about.professional_projects.join(", ")}. Personal projects: ${data.about.personal_projects.join(", ")}`;
+      } else if (msg.includes("joke")) {
+        return data.jokes[Math.floor(Math.random() * data.jokes.length)];
+      } else if (msg.includes("puzzle")) {
+        return data.puzzles[Math.floor(Math.random() * data.puzzles.length)];
+      } else if (msg.includes("meme")) {
+        return "Here’s a meme: " + data.memes[Math.floor(Math.random() * data.memes.length)];
+      } else {
+        return "I’m TatTvam. Ask me about Chaitanya, his projects, jokes, puzzles, or memes!";
+      }
+    }
+
+    sendBtn.addEventListener("click", () => {
+      const userMsg = inputField.value.trim();
+      if (!userMsg) return;
+      appendMessage(userMsg, "user");
+      const reply = botReply(userMsg);
+      appendMessage(reply, "bot");
+      inputField.value = "";
+    });
+
+    inputField.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendBtn.click();
+    });
   </script>
-  <script src="app.js"></script>
 </body>
 </html>
