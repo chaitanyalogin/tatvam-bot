@@ -5,27 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TatTvam — Chaitanya’s AI Guide</title>
   <link rel="stylesheet" href="style.css" />
+  <meta name="color-scheme" content="dark light" />
 </head>
 <body>
-  <!-- Top bar -->
   <header class="topbar">
     <div class="brand">
-      <div class="logo" aria-hidden="true">🤖</div>
+      <div class="logo">TT</div>
       <div class="titles">
         <h1>TatTvam</h1>
         <p>your friendly guide to Chaitanya</p>
       </div>
     </div>
     <nav class="actions">
-      <a class="btn" target="_blank" href="https://www.linkedin.com/in/chaitanyachidambarkulkarni/">LinkedIn</a>
+      <a class="btn" target="_blank"
+         href="https://www.linkedin.com/in/chaitanyachidambarkulkarni/">LinkedIn</a>
       <a class="btn" href="mailto:Chaitanyarocks.kulkarni@gmail.com">Email</a>
-      <a class="btn outline" target="_blank" href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/chaitanyachidambar.pdf">Resume</a>
+      <a class="btn outline" target="_blank"
+         href="https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/chaitanyachidambar.pdf">Resume</a>
     </nav>
   </header>
 
-  <!-- Layout -->
   <main class="wrap">
+    <section class="chatpane">
+      <div class="chat" id="chat"></div>
+      <footer class="composer">
+        <form id="form">
+          <input id="input" type="text" placeholder="Ask about Chaitanya… try: personal projects / current company / skills / EOL" autocomplete="off" />
+          <button class="send" aria-label="Send">➤</button>
+        </form>
+      </footer>
+    </section>
+
     <aside class="sidebar">
+      <div class="card profile" id="profileCard">
+        <!-- populated by JS -->
+      </div>
+
       <div class="card">
         <h3>Quick actions</h3>
         <div class="chips" id="chips">
@@ -33,30 +48,23 @@
           <button class="chip" data-q="current company">Current company</button>
           <button class="chip" data-q="skills">Skills</button>
           <button class="chip" data-q="projects">Projects</button>
+          <button class="chip" data-q="personal projects">Personal projects</button>
+          <button class="chip" data-q="education">Education</button>
           <button class="chip" data-q="eol">EOL project</button>
           <button class="chip" data-q="deployment">Deployment</button>
           <button class="chip" data-q="tell me a joke">Joke</button>
-          <button class="chip" data-q="memes">Meme</button>
+          <button class="chip" data-q="meme">Meme</button>
         </div>
       </div>
+
       <div class="card mini">
-        <p class="muted">Tip: ask in Hinglish — “kaise ho bhai”, “current company?”, “introduce chaitanya”.</p>
+        <p class="muted">Tip: Ask in Hinglish too — “kaise ho bhai”, “present company?”, “internship experience?”, “explain ETL”.</p>
       </div>
     </aside>
-
-    <section class="chat" id="chat" aria-live="polite" aria-label="TatTvam chat window"></section>
   </main>
 
-  <!-- Composer -->
-  <footer class="composer">
-    <form id="form" autocomplete="off">
-      <input id="input" type="text" placeholder="Ask me anything about Chaitanya…" />
-      <button class="send" aria-label="Send">➤</button>
-    </form>
-  </footer>
-
-  <!-- Data sources (correct URLs) -->
   <script>
+    // 🔗 Your canonical JSON URLs (as you provided)
     window.DATA_URLS = {
       profile:   "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/about_chaitanya.json",
       smalltalk: "https://raw.githubusercontent.com/chaitanyalogin/tatvam-bot/refs/heads/main/data/smalltalk.json",
