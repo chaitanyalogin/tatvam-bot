@@ -1,37 +1,21 @@
-# SMS Spam Classifier
+# TatTvam – Portfolio Chatbot
 
 ## 📌 Overview
-A machine learning model that classifies SMS messages as **spam** or **ham**. Includes preprocessing, model training, evaluation and a simple Streamlit demo.
+TatTvam is a portfolio chatbot built with HTML, CSS, and JavaScript using a JSON knowledge base.
 
 ## 🛠️ Tech Stack
-- Python (pandas, numpy)
-- scikit-learn
-- Streamlit
-- joblib
+- HTML, CSS, JavaScript
+- JSON
+- GitHub Pages (for hosting)
 
-## 📂 Project Structure
-```
-data/
-notebooks/
-src/
-model/
-app.py
-requirements.txt
-README.md
-```
+## 📂 Features
+- Loads Q&A from JSON
+- Simple intent matching
+- Responsive UI
 
 ## 🚀 How to Run
-1. Clone repo & install requirements.
-2. Train model (optional).
-3. Run demo:
-```bash
-streamlit run app.py
-```
-
-## 📊 Results
-- Accuracy: ~95–97% (replace with your actual)
+- Open `index.html` in browser
+- Deploy via GitHub Pages
 
 ## 👤 Author
-Chaitanya Chidambar Kulkarni  
-LinkedIn: https://www.linkedin.com/in/chaitanyachidambarkulkarni  
-GitHub: https://github.com/chaitanyalogin
+Chaitanyachidambar Kulkarni
